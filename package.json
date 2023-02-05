@@ -1,0 +1,17 @@
+{
+	"name": "dice-so-nice-more-sfx-triggers",
+	"version": "0.1.0",
+	"author": "cirrahn",
+	"type": "module",
+	"license": "MIT",
+	"scripts": {
+		"test:js": "eslint module/js",
+		"lint:js": "eslint module/js --fix",
+		"test": "npm run test:js",
+		"build": "bash build/package.sh"
+	},
+	"devDependencies": {
+		"@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
+		"eslint": "^8.33.0"
+	}
+}

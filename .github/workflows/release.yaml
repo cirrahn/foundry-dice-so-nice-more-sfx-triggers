@@ -1,0 +1,35 @@
+name: Create Release
+
+on:
+   push:
+      tags:
+         - 'v**'
+
+   workflow_dispatch:
+
+concurrency:
+   cancel-in-progress: true
+   group: "release"
+
+jobs:
+   build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
+         -  uses: actions/checkout@master
+
+         -  name: Build
+            run: |
+               npm i
+               npm run build
+
+         -  name: Zip
+            run: |
+               pushd dist/dice-so-nice-more-sfx-triggers
+               zip -r ../dice-so-nice-more-sfx-triggers.zip .
+               popd
+
+         -  name: Upload
+            run: |
+               hub release create -a dist/dice-so-nice-more-sfx-triggers.zip -a dist/dice-so-nice-more-sfx-triggers/module.json -m "${{ github.ref_name }}" ${{ github.ref_name }}
+            env:
+               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
